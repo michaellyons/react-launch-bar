@@ -6,7 +6,7 @@
   background-position: center;
 }
 .glassBkg {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   margin-bottom: 20px;
   border-radius: 4px;
 }
@@ -91,4 +91,11 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.displayTable {
+  font-size: 1.2em;
+}
+.displayTable td {
+  padding: 10px;
 }

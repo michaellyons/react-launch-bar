@@ -14,7 +14,7 @@ import './prop-type-description.css';
 
 const stringThing =
 '```javascript\n\
-import { MotionChart } from \'react-launch-bar\' \
+import { BarChart, MotionChart } from \'react-launch-bar\' \
 \n\
 class AwesomeComponent extends Component {\n\
   constructor(props) {\n\
@@ -160,8 +160,18 @@ class Demo extends React.Component {
               <td style={OPTION_LABEL_STYLE}>{row.name}</td>
            </tr>
   }
-  buildTable(rows) {
-    return <table style={{width: '100%'}}>
+  buildPropRow(row, i) {
+    return <tr key={i} style={OPTION_STYLE}>
+              <td className='col-xs-2'>{row.key}</td>
+              <td className='col-xs-2'>{row.type}</td>
+              <td style={OPTION_LABEL_STYLE}>{row.desc}</td>
+           </tr>
+  }
+  buildTable(title, rows) {
+    return <table className='displayTable' style={{width: '100%'}}>
+              <thead>
+               <td>{title}</td>
+              </thead>
               <tbody>
                 {rows}
               </tbody>
@@ -202,32 +212,22 @@ class Demo extends React.Component {
       data,
       mainBkg,
     } = this.state;
-    let generalOptions = this.buildTable([
+    let generalOptions = this.buildTable('Props', [
       {
-        name: 'Title Background',
-        key: 'titleStyle.backgroundColor',
+        name: 'Title',
+        type: 'String',
+        key: 'title',
         component: this.buildColorDiv('titleBkg', titleBkg)
       },
       {
-        name: 'Main Background',
-        key: 'style.backgroundColor',
+        name: 'Data',
+        key: 'data',
+        type: 'Object[]',
         value: mainBkg,
         component: this.buildColorDiv('mainBkg', mainBkg)
-      },
-      {
-        name: 'Text Color',
-        key: 'textStyle.fill',
-        value: textColor,
-        component: this.buildColorDiv('textColor', textColor)
-      },
-      {
-        name: 'Progress Color',
-        key: 'progressStyle.fill',
-        value: progressColor,
-        component: this.buildColorDiv('progressColor', progressColor)
       }
     ].map((item, i) => {
-      return this.buildOptionRow(item, i);
+      return this.buildPropRow(item, i);
     }));
 
     return <div className='rootBkg' style={{color: 'white', backgroundImage: "url('./public/launch.jpg')"}}>
@@ -277,7 +277,7 @@ class Demo extends React.Component {
                 <div style={{margin: '10px 0'}}dangerouslySetInnerHTML={{__html: marked(stringThing)}} />
               <div className='glassBkg'>
               <div className='' style={SECTION_STYLE}>
-                <h4 style={SECTION_TITLE_STYLE}>General</h4>
+                <h3 style={SECTION_TITLE_STYLE}>{"<BarChart />"}</h3>
                 {generalOptions}
               </div>
               </div>
