@@ -10,6 +10,24 @@
   margin-bottom: 20px;
   border-radius: 4px;
 }
+.axis line{
+  stroke: whitesmoke;
+}
+.axis path{
+  stroke: whitesmoke;
+}
+.axis text{
+  fill: whitesmoke;
+}
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
 .fadeTitle {
   padding: 4px 12px;
   color: white;

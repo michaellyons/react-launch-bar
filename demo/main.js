@@ -22,9 +22,9 @@ class AwesomeComponent extends Component {\n\
   }\n\
   render() {\n\
     let data = [\n\
-      { value: 10, color: "red"},\n\
-      { value: 4, color: "blue"},\n\
-      { value: 10, color: "red"},\n\
+      { key: \'a\', value: 10, color: "red"},\n\
+      { key: \'b\', value: 4, color: "blue"},\n\
+      { key: \'c\', value: 10, color: "red"},\n\
       ...\n\
     ];\n\
     return <BarChart data={data} />\n\
@@ -41,23 +41,23 @@ title | string | | Title of the chart
 
 const INIT_DATUMS = [
   {
-    label: 'N',
-    max: 40,
+    key: 'N',
+    max: 100,
     color: 'green'
   },
   {
-    label: 'P',
-    max: 80,
+    key: 'P',
+    max: 100,
     color: 'blue'
   },
   {
-    label: 'K',
-    max: 20,
+    key: 'K',
+    max: 100,
     color: '#0244aa'
   },
   {
-    label: 'D',
-    max: 40,
+    key: 'D',
+    max: 100,
     color: '#0288d1'
   }
 ]
@@ -101,7 +101,7 @@ class Demo extends React.Component {
       textColor: '#FFFFFF',
       labelColor: '#FFFFFF',
       progressColor: '#EEEEEE',
-      mainBkg: '#263238',
+      mainBkg: '',
       data: []
     };
     this.addAlert = this.addAlert.bind(this)
@@ -189,7 +189,7 @@ class Demo extends React.Component {
   createRandomData() {
     let array = [];
     array = INIT_DATUMS.map((d, i) => {
-      let random = Math.random() * d.max;
+      let random = Math.random() * 100;
       return {
         ...d,
         value: random
@@ -254,7 +254,6 @@ class Demo extends React.Component {
                 titleStyle={{backgroundColor: titleBkg}}
                 progressStyle={{fill: progressColor}}
                 wrapStyle={{margin: ''}}
-                value={barVal}
                 data={data} />
               <MotionBarChart
                 title="MOTION"

@@ -9,24 +9,18 @@ Math.clip = function (number, min, max) {
 export default class Bar extends React.Component {
   static propTypes = {
     barWidth: PropTypes.number,
-    barPadding: PropTypes.number,
     height: PropTypes.number,
     x: PropTypes.number,
     y: PropTypes.number,
-    max: PropTypes.number,
     value: PropTypes.any,
     duration: PropTypes.number,
     color: PropTypes.string,
-    bkgColor: PropTypes.string
+    id: PropTypes.string
   };
 
   static defaultProps = {
     barWidth: 60,
-    barPadding: 8,
     height: 170,
-    max: 100,
-    data: [],
-    decimal: 2,
     duration: 500,
     id: 'launch-gauge'
   };
@@ -134,53 +128,39 @@ export default class Bar extends React.Component {
       height,
       x,
       y,
-      bkgColor,
+      id,
       barWidth,
-      barPadding,
-      color,
-      max
+      color
     } = this.props
 
     let {
       val
     } = this.state
 
-    let totalHeight = height - (barPadding * 2)
-    let percent = Math.clip((val / max), 0.01, 1)
+    let coverHeight = height - val
     let rad = 4
-    let fixedY = y + 2
     return (
       <g ref={'wrap'}>
         <svg
           x={x}
-          y={fixedY}
-          style={{ background: 'yellow', borderRadius: 4 }}
-          height={totalHeight}
-          width={barWidth}>
-          <rect
-            width={barWidth}
-            height={totalHeight}
-            fill={color || '#0288d1'}
-            rx={rad}
-            ry={rad}
-            x={0}
-            y={0} />
-        </svg>
-        <svg
-          x={x}
-          y={fixedY}
+          y={y}
           width={barWidth}
-          height={totalHeight * (1 - percent)}>
+          height={height}>
+          <defs>
+            <clipPath id={id}>
+              <rect x={0} y={coverHeight} width={barWidth} height={val} />
+            </clipPath>
+          </defs>
           <rect
             width={barWidth}
-            height={totalHeight}
-            fill={bkgColor}
+            height={height}
+            fill={color}
             rx={rad}
             ry={rad}
+            clipPath={'url(#' + id + ')'}
             x={0}
             y={0} />
         </svg>
-
       </g>
     )
   }
